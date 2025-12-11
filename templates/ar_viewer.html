@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Model Viewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ar-viewer.css') }}">
+    <!-- A-Frame library for WebAR -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <!-- AR.js for augmented reality -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+    <!-- Model viewer component -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.144.0/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+    <div id="loadingIndicator">
+        <div class="loader">Loading AR experience...</div>
+    </div>
+
+    <a-scene 
+        vr-mode-ui="enabled: false" 
+        renderer="logarithmicDepthBuffer: true;" 
+        embedded
+        arjs="sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+        
+        <!-- Marker-based AR or immersive mode -->
+        <a-marker preset="hiro" id="marker">
+            <a-entity 
+                id="modelEntity"
+                position="0 0 0"
+                scale="0.1 0.1 0.1"
+                gltf-model="#modelAsset"
+                animation-mixer>
+            </a-entity>
+        </a-marker>
+        
+        <!-- For markerless AR on supported devices -->
+        <a-entity camera gps-camera rotation-reader></a-entity>
+        
+        <!-- Load the uploaded model -->
+        <a-asset-item id="modelAsset" src="/uploads/{{ model_id }}.{{ file_ext }}"></a-asset-item>
+    </a-scene>
+
+    <div id="arInstructions">
+        <p>Point your camera at the Hiro marker or tap "Enter AR" to begin</p>
+        <button id="enterArBtn">Enter AR Mode</button>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/ar-viewer.js') }}"></script>
+</body>
+</html>

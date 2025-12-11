@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR Model to AR Viewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Upload VR Model for AR Viewing</h1>
+            <p>Upload your 3D model and get a link to view it in Augmented Reality on your phone</p>
+        </header>
+        
+        <main>
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <p>Drag & drop your 3D model here or click to browse</p>
+                    <p class="file-types">Supported formats: GLB, GLTF, OBJ, FBX, DAE, STL</p>
+                    <input type="file" id="modelInput" accept=".glb,.gltf,.obj,.fbx,.dae,.stl" style="display: none;">
+                </div>
+                
+                <button id="uploadBtn" class="btn-primary" disabled>Upload Model</button>
+            </div>
+            
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h2>Your AR Link is Ready!</h2>
+                <div class="result-content">
+                    <div class="qr-code-placeholder">
+                        <p>QR Code will appear here</p>
+                    </div>
+                    <div class="link-container">
+                        <p>Share this link with your mobile device:</p>
+                        <div class="url-display">
+                            <span id="arLink"></span>
+                            <button id="copyBtn" class="btn-secondary">Copy</button>
+                        </div>
+                        <p class="instructions">Open this link on your mobile device to view the model in AR</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Processing your model...</p>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Upload 3D models and view them in AR on your mobile device</p>
+        </footer>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
